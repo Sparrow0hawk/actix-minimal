@@ -9,7 +9,7 @@ use actix_web::{web, App, HttpServer};
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(move || {
         App::new()
-            .route("/", web::get().to(index))
+            .service(web::scope("/").route("", web::get().to(index)))
             .wrap(Logger::default())
             .wrap(Logger::new("%a %{User-Agent}i"))
             .default_service(web::get().to(not_found))
