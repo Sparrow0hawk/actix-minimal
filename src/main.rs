@@ -1,7 +1,6 @@
-use std::net::TcpListener;
 use actix_minimal::startup::run;
 use env_logger::Env;
-
+use std::net::TcpListener;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
