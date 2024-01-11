@@ -11,18 +11,10 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
         App::new()
             .service(
                 web::scope("/")
-                    .guard(
-                        guard::Any(guard::Header("Accept", "*/*"))
-                            .or(guard::Header("Accept", "text/html")),
-                    )
-                    .route("", web::get().to(index_html)),
-            )
-            .service(
-                web::scope("/")
-                    .guard(guard::Header("Accept", "application/json"))
-                    .guard(guard::Not(guard::Header("Accept", "text/html")))
+                    .guard(guard::All(guard::Header("Accept", "application/json")).and(guard::Not(guard::Header("Accept", "text/html"))))
                     .route("", web::get().to(index_json)),
             )
+            .service(web::scope("/").route("", web::get().to(index_html)))
             .wrap(Logger::default())
             .wrap(Logger::new("%a %{User-Agent}i"))
             .default_service(web::get().to(not_found))
