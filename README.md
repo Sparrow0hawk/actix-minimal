@@ -1,6 +1,6 @@
 # Actix Web Minimal Starter
 
-A basic actix web starter repository.
+A minimal actix web repository.
 
 ## Basic configuration
 
@@ -47,4 +47,13 @@ To run locally:
 
    ```bash
    cargo test
+   ```
+   
+3. Use `curl` to return JSON
+   ```bash
+   # get HTML
+   curl http://127.0.0.1:8080
+   
+   # get JSON
+   curl -H "Accept: application/json" -v http://127.0.0.1:8080
    ```
